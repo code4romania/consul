@@ -1,0 +1,17 @@
+<span class="js-flag-actions">
+  <%= render "shared/flag_actions", flaggable: comment, divider: true %>
+</span>
+
+<span class="js-moderation-actions">
+  <% if can? :hide, comment %>
+    <span class="divider">&nbsp;&bull;&nbsp;</span>
+    <%= link_to t("admin.actions.hide").capitalize, hide_moderation_comment_path(comment),
+                method: :put, remote: true, data: { confirm: t("admin.actions.confirm") } %>
+  <% end %>
+
+  <% if can? :hide, comment.user %>
+    <span class="divider">&nbsp;&bull;&nbsp;</span>
+    <%= link_to t("admin.actions.hide_author").capitalize, hide_moderation_user_path(comment.user_id),
+                method: :put, data: { confirm: t("admin.actions.confirm") } %>
+  <% end %>
+</span>
